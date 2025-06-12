@@ -1,46 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Frontline London Staff Portal</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frontline London Staff Portal</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <aside class="sidebar">
-            <h2>Frontline London</h2>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="moderation.html">Moderation</a></li>
-                <li><a href="resources.html">Resources</a></li>
-                <li><a href="account.html">Account Settings</a></li>
-                <li><a href="#" id="logout">Logout</a></li>
-            </ul>
-        </aside>
+  <div class="container">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <h2>Frontline London</h2>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="moderation.html">Moderation</a></li>
+        <li><a href="resources.html">Resources</a></li>
+        <li><a href="account.html">Account Settings</a></li>
+        <li><a href="#" id="logout">Logout</a></li>
+      </ul>
+    </aside>
 
-        <main class="dashboard">
-            <h1>Welcome, Staff Name</h1>
-            <section class="stats">
-                <h2>Staff Notices</h2>
-                <h3>It's release day!!</h3>
-                <p>Today marks a huge moment for all of us. After weeks of planning, building, testing, and pushing through every challenge that came our way, the wait is finally over. Frontline London officially opens its doors today, and what was once just planning documents, development chats, and many failed servers — now becomes a fully operating server, open to the public.</p>
-                <p>Today is finally the day that we release Frontline London. After days of hard work and relentless graft, our development team have come together and pieced this project into something we can all be proud of. It hasn’t been easy — from bugs and balancing to late nights and unexpected setbacks, this team has worked tirelessly to make sure every detail, every asset, and every corner of the server is ready for life. And now, that vision becomes reality.</p>
-                <p>Although today marks the official release of Frontline London, we want to be completely transparent — this is just the beginning, not the final version. While we’ve put in countless hours to polish, test, and prepare, no launch is ever perfect. There will be bugs. There will be issues we didn’t catch. There may be moments where things don’t go as planned. But that’s part of the process. What matters is how we respond — and we’re fully committed to listening, adapting, and improving constantly. Your feedback, your reports, and your patience will play a vital role in shaping the server into what it’s meant to be. This is a living project, and with your help, we’ll continue to build and refine it day by day.</p>
-                <p>As part of our ongoing growth and commitment to building a strong, sustainable future for Frontline London, we’re also excited to announce that applications are now open for several key roles within the community. We are currently looking for dedicated and skilled individuals to join our development team, media team, and moderation team. These positions are critical in helping us expand, maintain quality, and ensure that both the server and its community continue to thrive. If you believe you have the passion, experience, or creativity to contribute in one of these areas, we encourage you to apply. This is your opportunity to help shape Frontline London from the inside out. These applications will be pushed out very soon, so keep your eyes open.</p>
-                <p>n closing, today isn’t just about opening a server — it’s about launching a vision, a community, and a future that we’re building together. Whether you’re a player, a staff member, or someone just watching from the sidelines, know that this is only the beginning of what we hope will become one of the most immersive and community-driven experiences out there. We’re incredibly proud of how far we’ve come — and even more excited for what’s ahead. Thank you for being here. Let’s build Frontline London together.</p>
-            </section>
+    <!-- Main Dashboard Content -->
+    <main class="dashboard">
+      <header class="dashboard-header">
+        <h1>Welcome, Staff Name</h1>
+        <p>Welcome back to the Frontline London Staff Portal. Stay updated with the latest staff notices, events, and resources.</p>
+      </header>
 
-            <section class="links">
-                <h2>Useful Links</h2>
-                <ul>
-                    <li><a href="http://109.106.1.99:40120/">txAdmin</a></li>
-                    <li><a href="https://frontlinelondonrpc.forcemanagementsystem.com/portal">FMS</a></li>
-                </ul>
-            </section>
-        </main>
-    </div>
+      <!-- Staff Notices Section -->
+      <section class="notices">
+        <h2>Staff Notices</h2>
+        <article>
+          <h3>It's Release Day!!</h3>
+          <p>Today marks a huge moment for all of us. After weeks of planning, building, testing, and pushing through every challenge that came our way, the wait is finally over. Frontline London officially opens its doors today, and what was once just planning documents, development chats, and many failed servers— now becomes a fully operating server open to the public.</p>
+          <p>After days of hard work and relentless effort, our development team has pieced this project into something we can all be proud of. It hasn’t been easy—from bugs and balancing to late nights and unexpected setbacks—our team has worked tirelessly to ensure every detail is ready for launch.</p>
+          <p>While we celebrate today’s launch, please remember that this is just the beginning. There will be challenges and bugs along the way; your feedback, reports, and patience are crucial as we continue to refine the server. Thank you for being here, and let’s build Frontline London together.</p>
+        </article>
+      </section>
 
-    <script src="script.js"></script>
+      <!-- Recent Updates Section -->
+      <section class="updates">
+        <h2>Recent Updates</h2>
+        <ul>
+          <li><strong>Update 1:</strong> Bug fixes and performance improvements implemented.</li>
+          <li><strong>Update 2:</strong> New role assignments added to the staff directory.</li>
+          <li><strong>Update 3:</strong> Additional training modules available for review.</li>
+        </ul>
+      </section>
+
+      <!-- Upcoming Events Section -->
+      <section class="events">
+        <h2>Upcoming Events</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Event</th>
+              <th>Details</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2025-06-15</td>
+              <td>Staff Meeting</td>
+              <td>Monthly meeting to discuss server performance and updates.</td>
+            </tr>
+            <tr>
+              <td>2025-06-20</td>
+              <td>Training Workshop</td>
+              <td>Interactive session on conflict resolution and best practices.</td>
+            </tr>
+            <tr>
+              <td>2025-06-25</td>
+              <td>Community Q&A</td>
+              <td>Open forum for staff to share questions and ideas.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Useful Links & Resources Section -->
+      <section class="resources">
+        <h2>Useful Links & Resources</h2>
+        <ul>
+          <li><a href="http://109.106.1.99:40120/" target="_blank">txAdmin</a></li>
+          <li><a href="https://frontlinelondonrpc.forcemanagementsystem.com/portal" target="_blank">FMS</a></li>
+          <li><a href="#">Staff Handbook</a></li>
+          <li><a href="#">Moderation Guide</a></li>
+          <li><a href="#">Conflict Resolution Tips</a></li>
+        </ul>
+      </section>
+
+      <!-- Staff Directory Section -->
+      <section class="directory">
+        <h2>Staff Directory</h2>
+        <p>Below is the current staff list with contact details and roles:</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Role</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Caleb</td>
+              <td>Moderator</td>
+              <td>caleb@example.com</td>
+            </tr>
+            <tr>
+              <td>Alex</td>
+              <td>Admin</td>
+              <td>alex@example.com</td>
+            </tr>
+            <tr>
+              <td>Jordan</td>
+              <td>Senior Moderator</td>
+              <td>jordan@example.com</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Frequently Asked Questions Section -->
+      <section class="faq">
+        <h2>Frequently Asked Questions</h2>
+        <article>
+          <h3>How do I submit a report?</h3>
+          <p>You can submit a report by clicking on the "Submit Report" button in the Moderation section or by contacting an admin directly.</p>
+        </article>
+        <article>
+          <h3>Where can I find training materials?</h3>
+          <p>All training materials are available in the Resources section under "Training Materials."</p>
+        </article>
+        <article>
+          <h3>Who can I contact for support?</h3>
+          <p>For technical support or enquiries, please reach out to the IT support team at support@frontlinelondon.xyz.</p>
+        </article>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
