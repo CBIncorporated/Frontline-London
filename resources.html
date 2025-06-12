@@ -5,9 +5,82 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Resources - Frontline London</title>
   <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Basic Container & Sidebar Styling */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+    }
+    .container {
+      display: flex;
+      min-height: 100vh;
+    }
+    .sidebar {
+      width: 250px;
+      background: #333;
+      color: #fff;
+      padding: 20px;
+    }
+    .sidebar h2 {
+      text-align: center;
+    }
+    .sidebar ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    .sidebar ul li {
+      padding: 10px 0;
+    }
+    .sidebar ul li a {
+      color: white;
+      text-decoration: none;
+    }
+    .dashboard {
+      flex-grow: 1;
+      padding: 20px;
+    }
+    h1, h2, h3 {
+      color: #333;
+    }
+    /* Dropdown Button Styling */
+    .dropdown-btn {
+      background-color: #555;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      text-align: left;
+      width: 100%;
+      font-size: 18px;
+      cursor: pointer;
+      outline: none;
+      margin: 10px 0;
+    }
+    .dropdown-btn:after {
+      content: '\002B'; /* plus sign */
+      float: right;
+      margin-left: 5px;
+    }
+    .dropdown-btn.active:after {
+      content: "\2212"; /* minus sign */
+    }
+    /* Dropdown Content Styling */
+    .dropdown-content {
+      display: none;
+      padding: 10px 0;
+      border: 1px solid #ccc;
+      margin-bottom: 20px;
+      background: #fff;
+    }
+    iframe {
+      width: 100%;
+      border: none;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
+    <!-- Sidebar Navigation -->
     <aside class="sidebar">
       <h2>Frontline London</h2>
       <ul>
@@ -18,45 +91,65 @@
       </ul>
     </aside>
 
+    <!-- Main Dashboard Area -->
     <main class="dashboard">
       <h1>Staff Resources</h1>
       <section class="resources">
         <h2>Training Materials</h2>
         
-        <!-- Staff Handbook Section -->
+        <!-- Resource 1: Staff Conduct Policy -->
         <article class="resource-item">
-          <h3>Staff Conduct Policy</h3>
-          <iframe 
-            src="https://docs.google.com/document/d/e/2PACX-1vQZ-07wv-oTV_sTMikZiSq_KP_3ziiEM01Um3m3_PcRBQEH5yslcP0tKGbdidStUOPBcn-2ELCJsPMV/pub?embedded=true"
-            width="100%" 
-            height="500" 
-            style="border: none;">
-          </iframe>
+          <button class="dropdown-btn">Staff Conduct Policy</button>
+          <div class="dropdown-content">
+            <iframe 
+              src="https://docs.google.com/document/d/e/2PACX-1vQZ-07wv-oTV_sTMikZiSq_KP_3ziiEM01Um3m3_PcRBQEH5yslcP0tKGbdidStUOPBcn-2ELCJsPMV/pub?embedded=true"
+              height="500">
+            </iframe>
+          </div>
         </article>
         
-        <!-- Additional Resource Links -->
+        <!-- Resource 2: Moderation Guide (Slideshow) -->
         <article class="resource-item">
-          <h3>Moderation Guide</h3>
-          <iframe 
-            src="https://docs.google.com/presentation/d/e/2PACX-1vSFI64CYqT-rQ_WcVfh6dUVtuGeUm7hzCNrqG_13yu4NNOqVgCJwu8uFa78Jyw3jeDSlV2KLwLR6gWD/pubembed?start=false&loop=false&delayms=3000"
-            width="100%" 
-            height="500" 
-            style="border: none;">
-          </iframe>
+          <button class="dropdown-btn">Moderation Guide</button>
+          <div class="dropdown-content">
+            <iframe 
+              src="https://docs.google.com/presentation/d/e/2PACX-1vSFI64CYqT-rQ_WcVfh6dUVtuGeUm7hzCNrqG_13yu4NNOqVgCJwu8uFa78Jyw3jeDSlV2KLwLR6gWD/pubembed?start=false&loop=false&delayms=3000"
+              height="500">
+            </iframe>
+          </div>
         </article>
+        
+        <!-- Resource 3: Conflict Resolution Tips -->
         <article class="resource-item">
-          <h3></h3>
-          <iframe 
-            src=""
-            width="100%" 
-            height="500" 
-            style="border: none;">
-          </iframe>
+          <button class="dropdown-btn">Conflict Resolution Tips</button>
+          <div class="dropdown-content">
+            <iframe 
+              src="https://docs.google.com/document/d/e/YourGoogleDocLinkHere/pub?embedded=true"
+              height="500">
+            </iframe>
+          </div>
         </article>
       </section>
     </main>
   </div>
 
+  <!-- Optional external script file: script.js -->
   <script src="script.js"></script>
+
+  <!-- Dropdown Toggle Script -->
+  <script>
+    const dropdownBtns = document.getElementsByClassName("dropdown-btn");
+    for (let i = 0; i < dropdownBtns.length; i++) {
+      dropdownBtns[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        let dropdownContent = this.nextElementSibling;
+        if (dropdownContent.style.display === "block") {
+          dropdownContent.style.display = "none";
+        } else {
+          dropdownContent.style.display = "block";
+        }
+      });
+    }
+  </script>
 </body>
 </html>
