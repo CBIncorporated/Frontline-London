@@ -4,11 +4,161 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Frontline London Staff Portal</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css"> 
+  <style>
+    /* Global Styles */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      color: #333;
+    }
+    .container {
+      display: flex;
+      min-height: 100vh;
+    }
+    /* Sidebar Styling */
+    .sidebar {
+      width: 250px;
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    .sidebar h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+    .sidebar ul li {
+      margin-bottom: 15px;
+    }
+    .sidebar ul li a {
+      display: block;
+      padding: 10px 15px;
+      background-color: #444;
+      border-radius: 5px;
+      color: #fff;
+      text-decoration: none;
+      transition: background-color 0.2s ease;
+    }
+    .sidebar ul li a:hover {
+      background-color: #555;
+    }
+    /* Dashboard & Header Styling */
+    .dashboard {
+      flex: 1;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    .dashboard-header {
+      background: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .dashboard-header h1 {
+      margin: 0 0 10px;
+    }
+    /* Section Styling */
+    section {
+      background: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    section h2 {
+      margin-top: 0;
+      margin-bottom: 15px;
+    }
+    /* Notices Section */
+    .notices article h3 {
+      margin-bottom: 10px;
+      color: #444;
+    }
+    .notices article p {
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+    /* Recent Updates Section */
+    .updates ul {
+      list-style: none;
+      padding: 0;
+    }
+    .updates ul li {
+      background: #e9e9e9;
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      transition: background 0.2s ease;
+    }
+    .updates ul li:hover {
+      background: #d9d9d9;
+    }
+    .updates ul li strong {
+      margin-right: 10px;
+    }
+    /* Resources Section */
+    .resources .resource-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .resources .resource {
+      flex: 1 1 220px;
+      background: #f9f9f9;
+      padding: 15px;
+      border-radius: 5px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .resources .resource img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+    .resources .resource h3 {
+      margin: 10px 0;
+    }
+    .resources .resource p {
+      font-size: 0.9em;
+      margin-bottom: 15px;
+    }
+    .resources .resource button {
+      padding: 10px 20px;
+      background-color: #007BFF;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.2s ease;
+    }
+    .resources .resource button:hover {
+      background-color: #0056b3;
+    }
+    
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+      .sidebar {
+        width: 100%;
+      }
+      .resources .resource {
+        flex: 1 1 100%;
+      }
+    }
+  </style>
 </head>
 <body>
   <div class="container">
-    
     <!-- Sidebar Navigation -->
     <aside class="sidebar">
       <h2>Frontline London</h2>
@@ -33,9 +183,9 @@
         <h2>Staff Notices</h2>
         <article>
           <h3>It's Release Day!!</h3>
-          <p>Today marks a huge moment for all of us. After weeks of planning, building, testing, and pushing through every challenge that came our way, the wait is finally over. Frontline London officially opens its doors today, and what was once just planning documents, development chats, and many failed servers— now becomes a fully operating server open to the public.</p>
-          <p>After days of hard work and relentless effort, our development team has pieced this project into something we can all be proud of. It hasn’t been easy—from bugs and balancing to late nights and unexpected setbacks—our team has worked tirelessly to ensure every detail is ready for launch.</p>
-          <p>While we celebrate today’s launch, please remember that this is just the beginning. There will be challenges and bugs along the way; your feedback, reports, and patience are crucial as we continue to refine the server. Thank you for being here, and let’s build Frontline London together.</p>
+          <p>Today marks a huge moment for all of us. After weeks of planning, building, testing, and pushing through every challenge that came our way, the wait is finally over. Frontline London officially opens its doors today, transforming our ideas and hard work into a fully operating server open to the public.</p>
+          <p>Our development team has poured their hearts into this project—from debugging to late-night crunch sessions—to ensure every detail is ready for launch. While today's celebration is exciting, we acknowledge that this is only the beginning. Challenges may arise, and your feedback will be essential as we refine the server further.</p>
+          <p>Thank you for being part of this journey. Let's build Frontline London together!</p>
         </article>
       </section>
 
@@ -43,20 +193,35 @@
       <section class="updates">
         <h2>Recent Updates</h2>
         <ul>
-          <li><strong>Update 1:</strong> </li>
-          <li><strong>Update 2:</strong> </li>
-          <li><strong>Update 3:</strong> </li>
+          <li><strong>Update 1:</strong> New moderation tools deployed to enhance efficiency.</li>
+          <li><strong>Update 2:</strong> Staff role assignments have been updated in the directory.</li>
+          <li><strong>Update 3:</strong> Website performance improvements have been implemented.</li>
         </ul>
       </section>
 
       <!-- Useful Links & Resources Section -->
       <section class="resources">
         <h2>Useful Links & Resources</h2>
-        <ul>
-          <li><a href="http://109.106.1.99:40120/" target="_blank">txAdmin</a></li>
-          <li><a href="https://frontlinelondonrpc.forcemanagementsystem.com/portal" target="_blank">FMS</a></li>
-        </ul>
+        <div class="resource-list">
+          <!-- Resource Item 1 -->
+          <div class="resource">
+            <img src="images/txadmin-placeholder.jpg" alt="txAdmin">
+            <h3>txAdmin</h3>
+            <p>Manage your server with our intuitive control panel.</p>
+            <button onclick="window.open('http://109.106.1.99:40120/', '_blank')">Visit txAdmin</button>
+          </div>
+          <!-- Resource Item 2 -->
+          <div class="resource">
+            <img src="images/fms-placeholder.jpg" alt="FMS">
+            <h3>FMS</h3>
+            <p>Access the Force Management System portal.</p>
+            <button onclick="window.open('https://frontlinelondonrpc.forcemanagementsystem.com/portal', '_blank')">Visit FMS</button>
+          </div>
+          <!-- Additional resource items can be added here -->
+        </div>
       </section>
+    </main>
+  </div>
 
   <script src="script.js"></script>
 </body>
