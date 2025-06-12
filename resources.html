@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Resources - Frontline London</title>
+  <title>Frontline London Staff Portal</title>
   <link rel="stylesheet" href="styles.css">
   <style>
     /* Basic Container & Sidebar Styling */
@@ -135,7 +135,6 @@
 
   <!-- Optional external script file: script.js -->
   <script src="script.js"></script>
-
   <!-- Dropdown Toggle Script -->
   <script>
     const dropdownBtns = document.getElementsByClassName("dropdown-btn");
@@ -143,11 +142,7 @@
       dropdownBtns[i].addEventListener("click", function() {
         this.classList.toggle("active");
         let dropdownContent = this.nextElementSibling;
-        if (dropdownContent.style.display === "block") {
-          dropdownContent.style.display = "none";
-        } else {
-          dropdownContent.style.display = "block";
-        }
+        dropdownContent.style.display = dropdownContent.style.display === "block" ? "none" : "block";
       });
     }
   </script>
