@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Frontline London Staff Portal</title>
-  <link rel="stylesheet" href="styles.css"> 
+  <link rel="stylesheet" href="styles.css" />
   <style>
     /* Global Styles */
     body {
@@ -20,18 +20,21 @@
     /* Sidebar Styling */
     .sidebar {
       width: 250px;
-      background-color: #333;
+      background: #0044ff; /* Updated color */
       color: #fff;
       padding: 20px;
       box-sizing: border-box;
+      min-height: 100vh;
     }
     .sidebar h2 {
       text-align: center;
       margin-bottom: 20px;
+      font-size: 24px;
     }
     .sidebar ul {
       list-style: none;
       padding: 0;
+      margin-top: 20px;
     }
     .sidebar ul li {
       margin-bottom: 15px;
@@ -41,8 +44,8 @@
       padding: 10px 15px;
       background-color: #444;
       border-radius: 5px;
-      color: #fff;
       text-decoration: none;
+      color: #fff;
       transition: background-color 0.2s ease;
     }
     .sidebar ul li a:hover {
@@ -59,7 +62,7 @@
       padding: 20px;
       border-radius: 5px;
       margin-bottom: 20px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
     .dashboard-header h1 {
       margin: 0 0 10px;
@@ -70,40 +73,13 @@
       padding: 20px;
       border-radius: 5px;
       margin-bottom: 20px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
     section h2 {
       margin-top: 0;
       margin-bottom: 15px;
     }
-    /* Notices Section */
-    .notices article h3 {
-      margin-bottom: 10px;
-      color: #444;
-    }
-    .notices article p {
-      line-height: 1.6;
-      margin-bottom: 10px;
-    }
-    /* Recent Updates Section */
-    .updates ul {
-      list-style: none;
-      padding: 0;
-    }
-    .updates ul li {
-      background: #e9e9e9;
-      padding: 15px;
-      margin-bottom: 10px;
-      border-radius: 5px;
-      transition: background 0.2s ease;
-    }
-    .updates ul li:hover {
-      background: #d9d9d9;
-    }
-    .updates ul li strong {
-      margin-right: 10px;
-    }
-    /* Resources Section */
+    /* Resources Section (unchanged) */
     .resources .resource-list {
       display: flex;
       flex-wrap: wrap;
@@ -115,7 +91,7 @@
       padding: 15px;
       border-radius: 5px;
       text-align: center;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
     .resources .resource img {
       width: 100%;
@@ -132,7 +108,7 @@
     }
     .resources .resource button {
       padding: 10px 20px;
-      background-color: #007BFF;
+      background-color: #007bff;
       border: none;
       color: #fff;
       cursor: pointer;
@@ -142,28 +118,96 @@
     .resources .resource button:hover {
       background-color: #0056b3;
     }
-    
-    /* Responsive Adjustments */
-    @media (max-width: 768px) {
-      .container {
-        flex-direction: column;
-      }
-      .sidebar {
-        width: 100%;
-      }
-      .resources .resource {
-        flex: 1 1 100%;
-      }
+    /* Moderation Actions Section */
+    .moderation-actions {
+      background: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      margin-top: 20px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .moderation-actions h2 {
+      margin-top: 0;
+      margin-bottom: 15px;
+    }
+    .moderation-actions form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .moderation-actions form input,
+    .moderation-actions form select {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+    .moderation-actions form button {
+      padding: 10px 20px;
+      background-color: #c0392b;
+      border: none;
+      color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+    .moderation-actions form button:hover {
+      background-color: #a93226;
+    }
+    #modResult {
+      font-weight: bold;
+    }
+    /* Login Overlay Styles */
+    #auth-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+    #auth-overlay .login-box {
+      background: #fff;
+      padding: 40px;
+      border-radius: 10px;
+      text-align: center;
+    }
+    #auth-overlay button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    #auth-overlay button:hover {
+      background-color: #0056b3;
     }
   </style>
 </head>
 <body>
-  <div class="container">
+  <!-- Login Overlay -->
+  <div id="auth-overlay">
+    <div class="login-box">
+      <h2>Staff Login</h2>
+      <button id="discord-login">Login with Discord</button>
+    </div>
+  </div>
+
+  <!-- Main Portal Container (Hidden until logged in) -->
+  <div id="main-container" class="container" style="display: none;">
     <!-- Sidebar Navigation -->
     <aside class="sidebar">
       <h2>Frontline London</h2>
       <ul>
-        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html" class="active">Home</a></li>
         <li><a href="moderation.html">Moderation</a></li>
         <li><a href="resources.html">Resources</a></li>
         <li><a href="suggestion.html">Staff Suggestions</a></li>
@@ -171,22 +215,19 @@
       </ul>
     </aside>
 
-    <!-- Main Dashboard Content -->
+    <!-- Main Dashboard Area -->
     <main class="dashboard">
       <header class="dashboard-header">
         <h1>Frontline London Staff Portal</h1>
-        <p>Welcome back to the Frontline London Staff Portal. Stay updated with the latest staff notices, events, and resources.</p>
+        <p>Welcome back to the portal. Stay updated with the latest staff notices, events, and resources.</p>
       </header>
-
-      <!-- Staff Notices Section -->
+      
+      <!-- Existing content sections (Notices, Resources, etc.) -->
       <section class="notices">
         <h2>About the Staff Portal</h2>
         <article>
           <h3>Information about the FLSP</h3>
-          <p>The Frontline London Staff Portal (FLSP) is the one stop shop for all things staff! Through this system, you can:</p>
-          <p>- Review and Learn from our detailed advisory documents</p>
-          <p>- Make Suggestions for the community</p>
-          <p>- And even send out Kicks and Bans!!!</p>
+          <p>The Frontline London Staff Portal (FLSP) is the one stop shop for all things staff! Through this system, you can review advisory documents, make suggestions for the community, and send out kicks and bans!</p>
         </article>
       </section>
       
@@ -194,36 +235,223 @@
         <h2>Staff Notices</h2>
         <article>
           <h3>It's Release Day!!</h3>
-          <p>Today marks a huge moment for all of us. After weeks of planning, building, testing, and pushing through every challenge that came our way, the wait is finally over. Frontline London officially opens its doors today, transforming our ideas and hard work into a fully operating server open to the public.</p>
-          <p>Our development team has poured their hearts into this project—from debugging to late-night crunch sessions—to ensure every detail is ready for launch. While today's celebration is exciting, we acknowledge that this is only the beginning. Challenges may arise, and your feedback will be essential as we refine the server further.</p>
-          <p>Thank you for being part of this journey. Let's build Frontline London together!</p>
+          <p>Today marks a huge moment for all of us. After weeks of hard work, Frontline London officially opens its doors to the public. Thank you for being part of this journey!</p>
         </article>
       </section>
-
-      <!-- Useful Links & Resources Section -->
+      
       <section class="resources">
         <h2>Useful Links & Resources</h2>
         <div class="resource-list">
-          <!-- Resource Item 1 -->
           <div class="resource">
-            <img src="data:image/jpeg;base64,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" alt="txAdmin">
+            <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxISEBAQEBAQEBAPDw8QDxAPEBAPDw8NFREWFhUVFRUYHSggGBolJxUVITIhJSkrLzAuGB8zODMsNygtLisBCgoKDg0OFxAQGy0fHyUrKy0tKy0tLS0tLS0tKy0tLS0tLS0tLS0tKy0tLS8tLS0tLS0tLS0tLS0tLS0tLS0tLf/AABEIAIUBewMBEQACEQEDEQH/xAAcAAACAwEBAQEAAAAAAAAAAAAAAQIDBAUGBwj/xABLEAACAgEDAwIEBAMGBwAAAAAAAQIDBBEhMQUSQVEGEyJhcYGRBxQjMjNywfAVFjNSYnKxFLH/xAAaAQADAQEBAQAAAAAAAAAAAAAAAQIDBAUG/8QAJBEAAgIBAwQCAwEAAAAAAAAAAAECEQMhEjFBEzJRYQUUInH/2gAMAwEAAhEDEQA/APyKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABbWlUot3anhw9GxPp7fl/BpXjfmuh9PSexXp007zmm2x0+3c7DxmN+acu1VbVeadbV67VY41Jm03XN1ycZJ/NI1LXzRUvYo4FYvJYlDJifpLS3y/TjsNDdPYXXt1/kl16NitdnZG80HMY3z2Z745vDrpby9Vfqcwzumt0XKHcmrea56/OyqyWtXksuJWpMaNdK1tEnSnx+PPnmsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADJdnPDcL8B2i1HRsOkfumm3n/AKedNpZsq/UKNZWLnOlKSe6aOpIqPpXj7J6r1Ja0Yp3Tq/cUXjFrCPI08XFGmbT+Pq2v3rdUorucm6mKnJtKrNEspJc62uLSz1cl+p+S6ZYdRzjnPPBwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIC6c3GcVITb5po/SUl2nTvdjT4f/write remainder here (truncated for brevity)...">
             <h3>txAdmin</h3>
             <p>Access the txAdmin portal</p>
             <button onclick="window.open('http://109.106.1.99:40120/', '_blank')">Visit txAdmin</button>
           </div>
-          <!-- Resource Item 2 -->
           <div class="resource">
-            <img src="https://media.discordapp.net/attachments/1367230490851147936/1382892634464583680/Frontline_London_Twitter_Banner.png?ex=684ccea0&is=684b7d20&hm=40d00a64df1f0394a57216f2c6adfb644db3771c29e615bf4dcdcf577a8e09e1&=&format=webp&quality=lossless" alt="FMS">
+            <img src="https://media.discordapp.net/attachments/1367230490851147936/1382892634464583680/Frontline_London_Twitter_Banner.png?ex=684ccea0&is=684b7d20&hm=40d00a64df1f0394a57216f2c6adfb644db3771c29e615bf4dcdcf577a8e09e1&format=webp&quality=lossless" alt="FMS">
             <h3>FMS</h3>
             <p>Access the Force Management System portal.</p>
             <button onclick="window.open('https://frontlinelondonrpc.forcemanagementsystem.com/portal', '_blank')">Visit FMS</button>
           </div>
-          <!-- Additional resource items can be added here -->
         </div>
+      </section>
+      
+      <!-- Moderation Actions Section -->
+      <section class="moderation-actions">
+        <h2>Moderation Actions</h2>
+        
+        <!-- Ban User Form -->
+        <form id="banForm">
+          <h3>Ban User Request</h3>
+          <input type="text" id="banUserId" placeholder="Enter Discord User ID" required>
+          <input type="text" id="banReason" placeholder="Reason for ban" required>
+          <input type="text" id="banStaffDetails" placeholder="Requesting Staff Member's details" required>
+          <input type="text" id="banEvidence" placeholder="Proof/Evidence (link or description)" required>
+          <button type="submit">Submit Ban Request</button>
+        </form>
+        
+        <!-- Kick User Form -->
+        <form id="kickForm">
+          <h3>Kick User Request</h3>
+          <input type="text" id="kickUserId" placeholder="Enter Discord User ID" required>
+          <input type="text" id="kickReason" placeholder="Reason for kick" required>
+          <input type="text" id="kickStaffDetails" placeholder="Requesting Staff Member's details" required>
+          <input type="text" id="kickEvidence" placeholder="Proof/Evidence (link or description)" required>
+          <button type="submit">Submit Kick Request</button>
+        </form>
+        
+        <!-- Action Log Form for In-Game Actions -->
+        <form id="actionLogForm">
+          <h3>In-Game Action Log</h3>
+          <select id="actionType" required>
+            <option value="" disabled selected>Select Action Type</option>
+            <option value="Kick">Kick</option>
+            <option value="Ban">Ban</option>
+            <option value="Warning">Warning</option>
+          </select>
+          <input type="text" id="actionUserId" placeholder="Enter In-Game User ID" required>
+          <input type="text" id="actionReason" placeholder="Reason for action" required>
+          <input type="text" id="actionStaffDetails" placeholder="Staff Member details" required>
+          <input type="text" id="actionEvidence" placeholder="Proof/Evidence (link or description)" required>
+          <button type="submit">Submit Action Log</button>
+        </form>
+        
+        <p id="modResult"></p>
       </section>
     </main>
   </div>
+  
+  <script>
+    /* ---------- Discord OAuth Login Integration ---------- */
+    const CLIENT_ID = "YOUR_DISCORD_CLIENT_ID"; // Replace with your Discord Client ID
+    const REDIRECT_URI = "YOUR_DOMAIN/auth"; // Replace with your actual redirect URI registered with Discord
 
-  <script src="script.js"></script>
+    // Show login overlay if user is not logged in
+    function checkLogin() {
+      const user = localStorage.getItem("discordUser");
+      if (user) {
+        document.getElementById("auth-overlay").style.display = "none";
+        document.getElementById("main-container").style.display = "flex";
+      } else {
+        document.getElementById("auth-overlay").style.display = "flex";
+        document.getElementById("main-container").style.display = "none";
+      }
+    }
+    checkLogin();
+
+    document.getElementById("discord-login").addEventListener("click", function() {
+      window.location.href = `https://discord.com/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=token&scope=identify`;
+    });
+
+    // Process access token if returned in URL hash
+    function processToken() {
+      const hash = window.location.hash.substring(1);
+      const params = new URLSearchParams(hash);
+      const accessToken = params.get("access_token");
+      if (accessToken) {
+        fetch("https://discord.com/api/users/@me", {
+          headers: { Authorization: `Bearer ${accessToken}` }
+        })
+        .then(response => response.json())
+        .then(data => {
+          localStorage.setItem("discordUser", data.username);
+          // Clean URL hash and show portal
+          window.location.hash = "";
+          checkLogin();
+        })
+        .catch(error => console.error("Error fetching Discord user:", error));
+      }
+    }
+    processToken();
+
+    document.getElementById("logout").addEventListener("click", function() {
+      localStorage.removeItem("discordUser");
+      window.location.reload();
+    });
+
+    /* ---------- Moderation Webhook Integration ---------- */
+    // Webhook URL for moderation requests (Ban & Kick)
+    const moderationWebhook = "https://discord.com/api/webhooks/1382887377902502129/R6OEY-RXWZ5DO4F1CdJJVV9q0ZdqdolVCE4_F678ewfW-3__34H5T-VO7Aa4oOvZ1Yds";
+    // Webhook URL for Action Log (In-Game actions)
+    const actionLogWebhook = "https://discord.com/api/webhooks/1382881344941588520/smBbOMsZF5g8vis2b4M0tv3inJNMT2Ma1gbj8Nl1KN74d3xfAAcvMI722d9xJBnTxB71";
+
+    async function sendDiscordEmbed(webhook, embedPayload) {
+      const payload = {
+        username: "Frontline London Moderation Approval",
+        avatar_url: "https://frontlinelondonrpc.forcemanagementsystem.com/images/logo.png",
+        embeds: [embedPayload]
+      };
+      try {
+        const response = await fetch(webhook, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        return response.ok;
+      } catch (error) {
+        console.error("Error sending embed:", error);
+        return false;
+      }
+    }
+
+    // Ban Form Submission
+    document.getElementById("banForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const userId = document.getElementById("banUserId").value.trim();
+      const reason = document.getElementById("banReason").value.trim();
+      const staffDetails = document.getElementById("banStaffDetails").value.trim();
+      const evidence = document.getElementById("banEvidence").value.trim();
+
+      if (!userId || !reason || !staffDetails || !evidence) {
+        document.getElementById("modResult").innerText = "All fields are required for a ban request.";
+        return;
+      }
+
+      const embedPayload = {
+        title: "Ban Request",
+        description: `**User ID:** ${userId}\n**Reason:** ${reason}\n**Staff Details:** ${staffDetails}\n**Proof/Evidence:** ${evidence}`,
+        color: 15158332,  // Red for bans
+        footer: { text: "Request sent to moderation channel." },
+        timestamp: new Date().toISOString()
+      };
+
+      const success = await sendDiscordEmbed(moderationWebhook, embedPayload);
+      document.getElementById("modResult").innerText = success ? "Ban request sent successfully." : "Error sending ban request.";
+      document.getElementById("banForm").reset();
+    });
+
+    // Kick Form Submission
+    document.getElementById("kickForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const userId = document.getElementById("kickUserId").value.trim();
+      const reason = document.getElementById("kickReason").value.trim();
+      const staffDetails = document.getElementById("kickStaffDetails").value.trim();
+      const evidence = document.getElementById("kickEvidence").value.trim();
+
+      if (!userId || !reason || !staffDetails || !evidence) {
+        document.getElementById("modResult").innerText = "All fields are required for a kick request.";
+        return;
+      }
+
+      const embedPayload = {
+        title: "Kick Request",
+        description: `**User ID:** ${userId}\n**Reason:** ${reason}\n**Staff Details:** ${staffDetails}\n**Proof/Evidence:** ${evidence}`,
+        color: 15105570,  // Orange for kicks
+        footer: { text: "Request sent to moderation channel." },
+        timestamp: new Date().toISOString()
+      };
+
+      const success = await sendDiscordEmbed(moderationWebhook, embedPayload);
+      document.getElementById("modResult").innerText = success ? "Kick request sent successfully." : "Error sending kick request.";
+      document.getElementById("kickForm").reset();
+    });
+
+    // Action Log Form Submission (for in-game actions)
+    document.getElementById("actionLogForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const type = document.getElementById("actionType").value;
+      const userId = document.getElementById("actionUserId").value.trim();
+      const reason = document.getElementById("actionReason").value.trim();
+      const staffDetails = document.getElementById("actionStaffDetails").value.trim();
+      const evidence = document.getElementById("actionEvidence").value.trim();
+
+      if (!type || !userId || !reason || !staffDetails || !evidence) {
+        document.getElementById("modResult").innerText = "All fields are required for an action log.";
+        return;
+      }
+
+      const embedPayload = {
+        title: `In-Game Action: ${type}`,
+        description: `**User ID:** ${userId}\n**Action Type:** ${type}\n**Reason:** ${reason}\n**Staff Details:** ${staffDetails}\n**Proof/Evidence:** ${evidence}`,
+        color: type === "Ban" ? 15158332 : type === "Kick" ? 15105570 : 3447003,
+        timestamp: new Date().toISOString()
+      };
+
+      const success = await sendDiscordEmbed(actionLogWebhook, embedPayload);
+      document.getElementById("modResult").innerText = success ? "Action log sent successfully." : "Error sending action log.";
+      document.getElementById("actionLogForm").reset();
+    });
+  </script>
 </body>
 </html>
