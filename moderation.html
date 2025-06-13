@@ -54,3 +54,66 @@
     .sidebar ul li a.active {
       background-color: #555;
     }
+    
+    /* Dashboard Area Styling */
+    .dashboard {
+      flex-grow: 1;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    .dashboard h1, .dashboard h2, .dashboard h3 {
+      color: #333;
+    }
+    
+    /* Dropdown Button Styling */
+    .dropdown-btn {
+      background-color: #555;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      text-align: left;
+      width: 100%;
+      font-size: 18px;
+      cursor: pointer;
+      outline: none;
+      margin: 10px 0;
+    }
+    .dropdown-btn:after {
+      content: '\002B'; /* plus sign */
+      float: right;
+      margin-left: 5px;
+    }
+    .dropdown-btn.active:after {
+      content: "\2212"; /* minus sign */
+    }
+    /* Dropdown Content Styling */
+    .dropdown-content {
+      display: none;
+      padding: 10px 0;
+      border: 1px solid #ccc;
+      margin-bottom: 20px;
+      background: #fff;
+    }
+    iframe {
+      width: 100%;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <h2>Frontline London</h2>
+      <ul>
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="moderation.html">Moderation</a></li>
+        <li><a href="resources.html">Resources</a></li>
+        <li><a href="suggestion.html">Staff Suggestions</a></li>
+        <li><a href="#" id="logout">Logout</a></li>
+      </ul>
+    </aside>
+
+    <!-- Main Dashboard Area -->
+    <main class="dashboard">
+      <h1>Staff Resources</h1>
