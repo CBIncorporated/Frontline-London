@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html>More actions
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Frontline London Staff Portal - Moderation</title>
+  <title>Frontline London Staff Portal</title>
   <link rel="stylesheet" href="styles.css">
   <style>
     /* Global Styles */
@@ -16,18 +16,19 @@
       display: flex;
       min-height: 100vh;
     }
-    
-    /* Sidebar Styling */
+
+    /* Consistent Sidebar Styling */
     .sidebar {
       width: 250px;
-      background: #0044ff;
+      background: #333;
       color: #fff;
       padding: 20px;
-      min-height: 100vh;
+      min-height: 100vh; /* Ensure it spans full height */
       box-sizing: border-box;
     }
     .sidebar h2 {
       text-align: center;
+      margin: 0;
       font-size: 24px;
       padding-bottom: 10px;
       border-bottom: 1px solid rgba(255,255,255,0.2);
@@ -49,21 +50,25 @@
       color: #fff;
       transition: background-color 0.3s ease;
     }
-    .sidebar ul li a:hover {
+    .sidebar ul li a:hover,
+    .sidebar ul li a.active {
       background-color: #555;
     }
 
-    /* Dashboard Styling */
+    /* Dashboard Area Styling */
     .dashboard {
       flex-grow: 1;
       padding: 20px;
       box-sizing: border-box;
     }
-    .dashboard h1 {
+    .dashboard h1, .dashboard h2, .dashboard h3 {
+    .dashboard h1,
+    .dashboard h2,
+    .dashboard h3 {
       color: #333;
     }
 
-    /* Moderation Actions */
+    /* Moderation Actions Section */
     .moderation-actions {
       background: #fff;
       padding: 20px;
@@ -71,14 +76,17 @@
       margin-top: 20px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
+    .moderation-actions h2 {
+      margin-top: 0;
+      margin-bottom: 15px;
+    }
     .moderation-actions form {
       display: flex;
       flex-direction: column;
       gap: 10px;
       margin-bottom: 20px;
     }
-    .moderation-actions form input,
-    .moderation-actions form select {
+    .moderation-actions form input {
       padding: 10px;
       border: 1px solid #ccc;
       border-radius: 5px;
@@ -119,11 +127,11 @@
     <!-- Main Dashboard Area -->
     <main class="dashboard">
       <h1>Moderation Panel</h1>
-      
+
       <!-- Moderation Actions Section -->
       <section class="moderation-actions">
         <h2>Moderation Actions</h2>
-
+        
         <!-- Ban User Form -->
         <form id="banForm">
           <h3>Ban User Request</h3>
@@ -133,7 +141,7 @@
           <input type="text" id="banEvidence" placeholder="Proof/Evidence (link or description)" required>
           <button type="submit">Submit Ban Request</button>
         </form>
-
+        
         <!-- Kick User Form -->
         <form id="kickForm">
           <h3>Kick User Request</h3>
@@ -143,8 +151,7 @@
           <input type="text" id="kickEvidence" placeholder="Proof/Evidence (link or description)" required>
           <button type="submit">Submit Kick Request</button>
         </form>
-
-        <!-- Action Log Form -->
+                <!-- Action Log Form -->
         <form id="actionLogForm">
           <h3>In-Game Action Log</h3>
           <select id="actionType" required>
@@ -159,25 +166,34 @@
           <input type="text" id="actionEvidence" placeholder="Proof/Evidence (link or description)" required>
           <button type="submit">Submit Action Log</button>
         </form>
-
+        
         <p id="modResult"></p>
       </section>
     </main>
   </div>
 
+  <!-- Inline JavaScript for Moderation Actions -->
   <script>
-    // Webhooks
+    // IMPORTANT: Replace with your actual Discord webhook URL for channel 1382886652535636108.
     const moderationWebhook = "https://discord.com/api/webhooks/1382887377902502129/R6OEY-RXWZ5DO4F1CdJJVV9q0ZdqdolVCE4_F678ewfW-3__34H5T-VO7Aa4oOvZ1Yds";
     const actionLogWebhook = "https://discord.com/api/webhooks/1382881344941588520/smBbOMsZF5g8vis2b4M0tv3inJNMT2Ma1gbj8Nl1KN74d3xfAAcvMI722d9xJBnTxB71";
 
-    async function sendDiscordEmbed(webhook, embedPayload) {
-      const payload = { username: "Frontline London Moderation Log", embeds: [embedPayload] };
+    // Common function to send the embed payload via webhook.
+    async function sendDiscordEmbed(embedPayload) {
+      const payload = {
+        username: "Frontline London Moderation Approval",
+        avatar_url: "https://frontlinelondonrpc.forcemanagementsystem.com/images/logo.png",
+        embeds: [embedPayload]
+      };
+
       try {
-        const response = await fetch(webhook, {
+        const response = await fetch(webhookUrl, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload)
         });
+        const text = await response.text();
+        console.log("Webhook response:", text);
         return response.ok;
       } catch (error) {
         console.error("Error sending embed:", error);
@@ -185,7 +201,76 @@
       }
     }
 
-    document.getElementById("actionLogForm").addEventListener("submit", async function(e) {
+    // Ban Form Submission
+    document.getElementById("banForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      
+      const userId = document.getElementById("banUserId").value.trim();
+      const reason  = document.getElementById("banReason").value.trim();
+      const reason = document.getElementById("banReason").value.trim();
+      const staffDetails = document.getElementById("banStaffDetails").value.trim();
+      const evidence = document.getElementById("banEvidence").value.trim();
+
+      if (!userId || !reason || !staffDetails) {
+      if (!userId || !reason || !staffDetails || !evidence) {
+        document.getElementById("modResult").innerText = "All fields are required for a ban request.";
+        return;
+      }
+
+      const embedPayload = {
+        title: "Ban Request",
+        description: `**User ID:** ${userId}\n**Reason:** ${reason}\n**Staff Details:** ${staffDetails}`,
+        description: `**User ID:** ${userId}\n**Reason:** ${reason}\n**Staff Details:** ${staffDetails}\n**Proof/Evidence:** ${evidence}`,
+        color: 15158332,  // Red color for bans (decimal)
+        footer: { text: "Request sent to moderation channel." },
+        timestamp: new Date().toISOString()
+      };
+
+      const success = await sendDiscordEmbed(embedPayload);
+      if (success) {
+        document.getElementById("modResult").innerText = "Ban request sent successfully.";
+        document.getElementById("banForm").reset();
+        document.getElementById("kickForm").reset();
+      } else {
+        document.getElementById("modResult").innerText = "Error sending ban request.";
+      }
+    });
+
+    // Kick Form Submission
+    document.getElementById("kickForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      
+      const userId = document.getElementById("kickUserId").value.trim();
+      const reason  = document.getElementById("kickReason").value.trim();
+      const reason = document.getElementById("kickReason").value.trim();
+      const staffDetails = document.getElementById("kickStaffDetails").value.trim();
+      const evidence = document.getElementById("kickEvidence").value.trim();
+
+      if (!userId || !reason || !staffDetails) {
+      if (!userId || !reason || !staffDetails || !evidence) {
+        document.getElementById("modResult").innerText = "All fields are required for a kick request.";
+        return;
+      }
+
+      const embedPayload = {
+        title: "Kick Request",
+        description: `**User ID:** ${userId}\n**Reason:** ${reason}\n**Staff Details:** ${staffDetails}`,
+        description: `**User ID:** ${userId}\n**Reason:** ${reason}\n**Staff Details:** ${staffDetails}\n**Proof/Evidence:** ${evidence}`,
+        color: 15105570,  // Orange color for kicks (decimal)
+        footer: { text: "Request sent to moderation channel." },
+        timestamp: new Date().toISOString()
+      };
+
+      const success = await sendDiscordEmbed(embedPayload);
+      if (success) {
+        document.getElementById("modResult").innerText = "Kick request sent successfully.";
+        document.getElementById("kickForm").reset();
+        document.getElementById("banForm").reset();
+      } else {
+        document.getElementById("modResult").innerText = "Error sending kick request.";
+      }
+    });
+      document.getElementById("actionLogForm").addEventListener("submit", async function(e) {
       e.preventDefault();
       const type = document.getElementById("actionType").value;
       const userId = document.getElementById("actionUserId").value.trim();
@@ -193,23 +278,14 @@
       const staffDetails = document.getElementById("actionStaffDetails").value.trim();
       const evidence = document.getElementById("actionEvidence").value.trim();
 
-      if (!type || !userId || !reason || !staffDetails || !evidence) {
+        if (!type || !userId || !reason || !staffDetails || !evidence) {
         document.getElementById("modResult").innerText = "All fields are required for an action log.";
         return;
       }
-
-      const embedPayload = {
+            const embedPayload = {
         title: `In-Game Action: ${type}`,
         description: `**User ID:** ${userId}\n**Action Type:** ${type}\n**Reason:** ${reason}\n**Staff Details:** ${staffDetails}\n**Proof/Evidence:** ${evidence}`,
         color: type === "Ban" ? 15158332 : type === "Kick" ? 15105570 : 3447003,
-        timestamp: new Date().toISOString()
-      };
-
-       const embedPayload = {
-        title: "Kick Request",
-        description: `**User ID:** ${userId}\n**Reason:** ${reason}\n**Staff Details:** ${staffDetails}\n**Proof/Evidence:** ${evidence}`,
-        color: 15105570,  // Orange color for kicks (decimal)
-        footer: { text: "Request sent to moderation channel." },
         timestamp: new Date().toISOString()
       };
   </script>
