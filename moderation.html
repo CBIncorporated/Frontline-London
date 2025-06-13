@@ -158,9 +158,7 @@
     <!-- Main Dashboard Area -->
     <main class="dashboard">
       <h1>Moderation Panel</h1>
-      
-      <!-- Existing moderation content can go here... -->
-      
+
       <!-- Moderation Actions Section -->
       <section class="moderation-actions">
         <h2>Moderation Actions</h2>
@@ -187,7 +185,7 @@
   <script src="script.js"></script>
   <!-- Inline JavaScript for Dropdowns and Moderation Actions -->
   <script>
-    // Dropdown Toggle Script (if needed elsewhere)
+    // Dropdown Toggle Script (if needed)
     const dropdownBtns = document.getElementsByClassName("dropdown-btn");
     for (let i = 0; i < dropdownBtns.length; i++) {
       dropdownBtns[i].addEventListener("click", function() {
@@ -197,72 +195,76 @@
       });
     }
 
-    /* Moderation Actions: Ban and Kick */
-    // Replace with your backend API that handles banning and kicking.
+    /* Moderation Actions: Ban and Kick Users with embed payload */
+    // Replace with your backend URL that handles discord actions.
     const backendUrl = "https://discord.com/oauth2/authorize?client_id=1382882140764770304&permissions=1099511627782&integration_type=0&scope=bot";
 
+    // Function to send moderation command.
+    async function sendModAction(action, userId, reason, embedPayload) {
+      const payload = {
+        action,
+        userId,
+        reason,
+        channelId: "1376650898922668224",  // Target channel id for embed message.
+        embed: embedPayload
+      };
+      try {
+        const response = await fetch(backendUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        return response.ok;
+      } catch (error) {
+        console.error("Error:", error);
+        return false;
+      }
+    }
+    
+    // Ban Form Submission
     document.getElementById("banForm").addEventListener("submit", async function(e) {
       e.preventDefault();
       const userId = document.getElementById("banUserId").value.trim();
       const reason = document.getElementById("banReason").value.trim();
-      
-      const payload = {
-        action: "ban",
-        userId: userId,
-        reason: reason
+      const embedPayload = {
+        title: "User Banned",
+        description: `User ID: ${userId}\nReason: ${reason}`,
+        color: 16711680,  // Red color (decimal value)
+        footer: {
+          text: "Action taken in channel 1376650898922668224"
+        },
+        timestamp: new Date().toISOString()
       };
-      
-      try {
-        const response = await fetch(backendUrl, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(payload)
-        });
-        
-        if (response.ok) {
-          document.getElementById("modResult").innerText = "User banned successfully.";
-          document.getElementById("banForm").reset();
-          document.getElementById("kickForm").reset();
-        } else {
-          document.getElementById("modResult").innerText = "Error banning user.";
-        }
-      } catch (error) {
-        console.error("Error:", error);
+      const success = await sendModAction("ban", userId, reason, embedPayload);
+      if (success) {
+        document.getElementById("modResult").innerText = "User banned successfully.";
+        document.getElementById("banForm").reset();
+        document.getElementById("kickForm").reset();
+      } else {
         document.getElementById("modResult").innerText = "Error banning user.";
       }
     });
     
+    // Kick Form Submission
     document.getElementById("kickForm").addEventListener("submit", async function(e) {
       e.preventDefault();
       const userId = document.getElementById("kickUserId").value.trim();
       const reason = document.getElementById("kickReason").value.trim();
-      
-      const payload = {
-        action: "kick",
-        userId: userId,
-        reason: reason
+      const embedPayload = {
+        title: "User Kicked",
+        description: `User ID: ${userId}\nReason: ${reason}`,
+        color: 15105570,  // Orange color (decimal value)
+        footer: {
+          text: "Action taken in channel 1376650898922668224"
+        },
+        timestamp: new Date().toISOString()
       };
-      
-      try {
-        const response = await fetch(backendUrl, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(payload)
-        });
-        
-        if (response.ok) {
-          document.getElementById("modResult").innerText = "User kicked successfully.";
-          document.getElementById("kickForm").reset();
-          document.getElementById("banForm").reset();
-        } else {
-          document.getElementById("modResult").innerText = "Error kicking user.";
-        }
-      } catch (error) {
-        console.error("Error:", error);
+      const success = await sendModAction("kick", userId, reason, embedPayload);
+      if (success) {
+        document.getElementById("modResult").innerText = "User kicked successfully.";
+        document.getElementById("kickForm").reset();
+        document.getElementById("banForm").reset();
+      } else {
         document.getElementById("modResult").innerText = "Error kicking user.";
       }
     });
