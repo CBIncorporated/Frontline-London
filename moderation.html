@@ -16,14 +16,13 @@
       display: flex;
       min-height: 100vh;
     }
-
     /* Consistent Sidebar Styling */
     .sidebar {
       width: 250px;
       background: #333;
       color: #fff;
       padding: 20px;
-      min-height: 100vh; /* Ensure it spans full height */
+      min-height: 100vh;
       box-sizing: border-box;
     }
     .sidebar h2 {
@@ -54,7 +53,6 @@
     .sidebar ul li a.active {
       background-color: #555;
     }
-
     /* Dashboard Area Styling */
     .dashboard {
       flex-grow: 1;
@@ -66,8 +64,7 @@
     .dashboard h3 {
       color: #333;
     }
-
-    /* Moderation/Staff Action Log Section */
+    /* Moderation Actions Section */
     .moderation-actions {
       background: #fff;
       padding: 20px;
@@ -126,13 +123,32 @@
 
     <!-- Main Dashboard Area -->
     <main class="dashboard">
-      <h1>Staff Action Log</h1>
+      <h1>Moderation Panel</h1>
 
-      <!-- Staff Action Log Section -->
+      <!-- Moderation Actions Section -->
       <section class="moderation-actions">
-        <h2>Log In-Game Action</h2>
+        <!-- Ban User Form -->
+        <h2>Ban User Request</h2>
+        <form id="banForm">
+          <input type="text" id="banUserId" placeholder="Enter Discord User ID" required>
+          <input type="text" id="banReason" placeholder="Reason for ban" required>
+          <input type="text" id="banStaffDetails" placeholder="Requesting Staff Member's details" required>
+          <input type="text" id="banEvidence" placeholder="Proof/Evidence (link or description)" required>
+          <button type="submit">Submit Ban Request</button>
+        </form>
         
-        <!-- Staff Action Form -->
+        <!-- Kick User Form -->
+        <h2>Kick User Request</h2>
+        <form id="kickForm">
+          <input type="text" id="kickUserId" placeholder="Enter Discord User ID" required>
+          <input type="text" id="kickReason" placeholder="Reason for kick" required>
+          <input type="text" id="kickStaffDetails" placeholder="Requesting Staff Member's details" required>
+          <input type="text" id="kickEvidence" placeholder="Proof/Evidence (link or description)" required>
+          <button type="submit">Submit Kick Request</button>
+        </form>
+        
+        <!-- Staff Action Log Form -->
+        <h2>Staff Action Log</h2>
         <form id="staffActionForm">
           <input type="text" id="staffDetails" placeholder="Staff Details" required>
           <select id="actionTaken" required>
@@ -151,7 +167,7 @@
     </main>
   </div>
 
-  <!-- Inline JavaScript for Staff Action Log -->
+  <!-- Inline JavaScript for Handling Forms -->
   <script>
     // IMPORTANT: Replace with your actual Discord webhook URL.
     const webhookUrl = "https://discord.com/api/webhooks/1382887377902502129/R6OEY-RXWZ5DO4F1CdJJVV9q0ZdqdolVCE4_F678ewfW-3__34H5T-VO7Aa4oOvZ1Yds";
@@ -193,7 +209,69 @@
       }
     }
 
-    // Staff Action Form Submission
+    // Ban Form Submission
+    document.getElementById("banForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      
+      const userId = document.getElementById("banUserId").value.trim();
+      const reason  = document.getElementById("banReason").value.trim();
+      const staffDetails = document.getElementById("banStaffDetails").value.trim();
+      const evidence = document.getElementById("banEvidence").value.trim();
+
+      if (!userId || !reason || !staffDetails || !evidence) {
+        document.getElementById("modResult").innerText = "All fields are required for a ban request.";
+        return;
+      }
+
+      const embedPayload = {
+        title: "Ban Request",
+        description: `**User ID:** ${userId}\n**Reason:** ${reason}\n**Staff Details:** ${staffDetails}\n**Proof/Evidence:** ${evidence}`,
+        color: 15158332,
+        footer: { text: "Request sent to moderation channel." },
+        timestamp: new Date().toISOString()
+      };
+
+      const success = await sendDiscordEmbed(embedPayload);
+      if (success) {
+        document.getElementById("modResult").innerText = "Ban request sent successfully.";
+        document.getElementById("banForm").reset();
+      } else {
+        document.getElementById("modResult").innerText = "Error sending ban request.";
+      }
+    });
+
+    // Kick Form Submission
+    document.getElementById("kickForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      
+      const userId = document.getElementById("kickUserId").value.trim();
+      const reason  = document.getElementById("kickReason").value.trim();
+      const staffDetails = document.getElementById("kickStaffDetails").value.trim();
+      const evidence = document.getElementById("kickEvidence").value.trim();
+
+      if (!userId || !reason || !staffDetails || !evidence) {
+        document.getElementById("modResult").innerText = "All fields are required for a kick request.";
+        return;
+      }
+
+      const embedPayload = {
+        title: "Kick Request",
+        description: `**User ID:** ${userId}\n**Reason:** ${reason}\n**Staff Details:** ${staffDetails}\n**Proof/Evidence:** ${evidence}`,
+        color: 15105570,
+        footer: { text: "Request sent to moderation channel." },
+        timestamp: new Date().toISOString()
+      };
+
+      const success = await sendDiscordEmbed(embedPayload);
+      if (success) {
+        document.getElementById("modResult").innerText = "Kick request sent successfully.";
+        document.getElementById("kickForm").reset();
+      } else {
+        document.getElementById("modResult").innerText = "Error sending kick request.";
+      }
+    });
+
+    // Staff Action Log Form Submission
     document.getElementById("staffActionForm").addEventListener("submit", async function(e) {
       e.preventDefault();
 
@@ -202,13 +280,11 @@
       const userId = document.getElementById("userId").value.trim();
       const evidence = document.getElementById("evidence").value.trim();
 
-      // Validate that all fields are filled.
       if (!staffDetails || !actionTaken || !userId || !evidence) {
-        document.getElementById("modResult").innerText = "All fields are required for a staff action log.";
+        document.getElementById("modResult").innerText = "All fields are required for logging a staff action.";
         return;
       }
 
-      // Create the embed payload.
       const embedPayload = {
         title: `Staff Action Log - ${actionTaken}`,
         description: `**Staff Details:** ${staffDetails}\n**Action Taken:** ${actionTaken}\n**User ID:** ${userId}\n**Proof/Evidence:** ${evidence}`,
