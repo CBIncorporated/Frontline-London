@@ -133,7 +133,7 @@
           <h3>Ban User Request</h3>
           <input type="text" id="banUserId" placeholder="Enter Discord User ID" required>
           <input type="text" id="banReason" placeholder="Reason for ban" required>
-          <input type="text" id="staffDetails" placeholder="Requesting Staff Member's details" required>
+          <input type="text" id="banStaffDetails" placeholder="Requesting Staff Member's details" required>
           <button type="submit">Submit Ban Request</button>
         </form>
         <!-- Kick User Form -->
@@ -141,7 +141,7 @@
           <h3>Kick User Request</h3>
           <input type="text" id="kickUserId" placeholder="Enter Discord User ID" required>
           <input type="text" id="kickReason" placeholder="Reason for kick" required>
-          <input type="text" id="staffDetails" placeholder="Requesting Staff Member's details" required>
+          <input type="text" id="kickStaffDetails" placeholder="Requesting Staff Member's details" required>
           <button type="submit">Submit Kick Request</button>
         </form>
         <p id="modResult"></p>
@@ -158,7 +158,7 @@
     async function sendDiscordEmbed(embedPayload) {
       const payload = {
         username: "Frontline London Moderation Approval",
-        avatar_url: "https://frontlinelondonrpc.forcemanagementsystem.com/images/logo.png", // Example avatar—adjust as needed.
+        avatar_url: "https://frontlinelondonrpc.forcemanagementsystem.com/images/logo.png",
         embeds: [embedPayload]
       };
 
@@ -182,15 +182,16 @@
       e.preventDefault();
       const userId = document.getElementById("banUserId").value.trim();
       const reason  = document.getElementById("banReason").value.trim();
+      const staffDetails = document.getElementById("banStaffDetails").value.trim();
 
-      if (!userId || !reason) {
-        document.getElementById("modResult").innerText = "User ID and reason are required for a ban.";
+      if (!userId || !reason || !staffDetails) {
+        document.getElementById("modResult").innerText = "All fields are required for a ban request.";
         return;
       }
 
       const embedPayload = {
         title: "Ban Request",
-        description: `**User ID:** ${userId}\n**Reason:** ${reason}`,
+        description: `**User ID:** ${userId}\n**Reason:** ${reason}\n**Staff Details:** ${staffDetails}`,
         color: 15158332,  // Red color for bans (decimal)
         footer: { text: "Request sent to moderation channel." },
         timestamp: new Date().toISOString()
@@ -211,17 +212,18 @@
       e.preventDefault();
       const userId = document.getElementById("kickUserId").value.trim();
       const reason  = document.getElementById("kickReason").value.trim();
+      const staffDetails = document.getElementById("kickStaffDetails").value.trim();
 
-      if (!userId || !reason) {
-        document.getElementById("modResult").innerText = "User ID and reason are required for a kick.";
+      if (!userId || !reason || !staffDetails) {
+        document.getElementById("modResult").innerText = "All fields are required for a kick request.";
         return;
       }
 
       const embedPayload = {
         title: "Kick Request",
-        description: `**User ID:** ${userId}\n**Reason:** ${reason}`,
+        description: `**User ID:** ${userId}\n**Reason:** ${reason}\n**Staff Details:** ${staffDetails}`,
         color: 15105570,  // Orange color for kicks (decimal)
-        footer: { text: "Action pending approval." },
+        footer: { text: "Request sent to moderation channel." },
         timestamp: new Date().toISOString()
       };
 
