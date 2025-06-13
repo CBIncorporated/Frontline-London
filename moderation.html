@@ -61,7 +61,9 @@
       padding: 20px;
       box-sizing: border-box;
     }
-    .dashboard h1, .dashboard h2, .dashboard h3 {
+    .dashboard h1,
+    .dashboard h2,
+    .dashboard h3 {
       color: #333;
     }
     
@@ -128,22 +130,27 @@
       <!-- Moderation Actions Section -->
       <section class="moderation-actions">
         <h2>Moderation Actions</h2>
+        
         <!-- Ban User Form -->
         <form id="banForm">
           <h3>Ban User Request</h3>
           <input type="text" id="banUserId" placeholder="Enter Discord User ID" required>
           <input type="text" id="banReason" placeholder="Reason for ban" required>
           <input type="text" id="banStaffDetails" placeholder="Requesting Staff Member's details" required>
+          <input type="text" id="banEvidence" placeholder="Proof/Evidence (link or description)" required>
           <button type="submit">Submit Ban Request</button>
         </form>
+        
         <!-- Kick User Form -->
         <form id="kickForm">
           <h3>Kick User Request</h3>
           <input type="text" id="kickUserId" placeholder="Enter Discord User ID" required>
           <input type="text" id="kickReason" placeholder="Reason for kick" required>
           <input type="text" id="kickStaffDetails" placeholder="Requesting Staff Member's details" required>
+          <input type="text" id="kickEvidence" placeholder="Proof/Evidence (link or description)" required>
           <button type="submit">Submit Kick Request</button>
         </form>
+        
         <p id="modResult"></p>
       </section>
     </main>
@@ -180,18 +187,20 @@
     // Ban Form Submission
     document.getElementById("banForm").addEventListener("submit", async function(e) {
       e.preventDefault();
+      
       const userId = document.getElementById("banUserId").value.trim();
-      const reason  = document.getElementById("banReason").value.trim();
+      const reason = document.getElementById("banReason").value.trim();
       const staffDetails = document.getElementById("banStaffDetails").value.trim();
+      const evidence = document.getElementById("banEvidence").value.trim();
 
-      if (!userId || !reason || !staffDetails) {
+      if (!userId || !reason || !staffDetails || !evidence) {
         document.getElementById("modResult").innerText = "All fields are required for a ban request.";
         return;
       }
 
       const embedPayload = {
         title: "Ban Request",
-        description: `**User ID:** ${userId}\n**Reason:** ${reason}\n**Staff Details:** ${staffDetails}`,
+        description: `**User ID:** ${userId}\n**Reason:** ${reason}\n**Staff Details:** ${staffDetails}\n**Proof/Evidence:** ${evidence}`,
         color: 15158332,  // Red color for bans (decimal)
         footer: { text: "Request sent to moderation channel." },
         timestamp: new Date().toISOString()
@@ -210,18 +219,20 @@
     // Kick Form Submission
     document.getElementById("kickForm").addEventListener("submit", async function(e) {
       e.preventDefault();
+      
       const userId = document.getElementById("kickUserId").value.trim();
-      const reason  = document.getElementById("kickReason").value.trim();
+      const reason = document.getElementById("kickReason").value.trim();
       const staffDetails = document.getElementById("kickStaffDetails").value.trim();
+      const evidence = document.getElementById("kickEvidence").value.trim();
 
-      if (!userId || !reason || !staffDetails) {
+      if (!userId || !reason || !staffDetails || !evidence) {
         document.getElementById("modResult").innerText = "All fields are required for a kick request.";
         return;
       }
 
       const embedPayload = {
         title: "Kick Request",
-        description: `**User ID:** ${userId}\n**Reason:** ${reason}\n**Staff Details:** ${staffDetails}`,
+        description: `**User ID:** ${userId}\n**Reason:** ${reason}\n**Staff Details:** ${staffDetails}\n**Proof/Evidence:** ${evidence}`,
         color: 15105570,  // Orange color for kicks (decimal)
         footer: { text: "Request sent to moderation channel." },
         timestamp: new Date().toISOString()
