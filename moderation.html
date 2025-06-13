@@ -1,4 +1,4 @@
-<!DOCTYPE html>More actions
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -151,21 +151,6 @@
           <input type="text" id="kickEvidence" placeholder="Proof/Evidence (link or description)" required>
           <button type="submit">Submit Kick Request</button>
         </form>
-                <!-- Action Log Form -->
-        <form id="actionLogForm">
-          <h3>In-Game Action Log</h3>
-          <select id="actionType" required>
-            <option value="" disabled selected>Select Action Type</option>
-            <option value="Kick">Kick</option>
-            <option value="Ban">Ban</option>
-            <option value="Warning">Warning</option>
-          </select>
-          <input type="text" id="actionUserId" placeholder="Enter In-Game User ID" required>
-          <input type="text" id="actionReason" placeholder="Reason for action" required>
-          <input type="text" id="actionStaffDetails" placeholder="Staff Member details" required>
-          <input type="text" id="actionEvidence" placeholder="Proof/Evidence (link or description)" required>
-          <button type="submit">Submit Action Log</button>
-        </form>
         
         <p id="modResult"></p>
       </section>
@@ -175,8 +160,7 @@
   <!-- Inline JavaScript for Moderation Actions -->
   <script>
     // IMPORTANT: Replace with your actual Discord webhook URL for channel 1382886652535636108.
-    const moderationWebhook = "https://discord.com/api/webhooks/1382887377902502129/R6OEY-RXWZ5DO4F1CdJJVV9q0ZdqdolVCE4_F678ewfW-3__34H5T-VO7Aa4oOvZ1Yds";
-    const actionLogWebhook = "https://discord.com/api/webhooks/1382881344941588520/smBbOMsZF5g8vis2b4M0tv3inJNMT2Ma1gbj8Nl1KN74d3xfAAcvMI722d9xJBnTxB71";
+    const webhookUrl = "https://discord.com/api/webhooks/1382887377902502129/R6OEY-RXWZ5DO4F1CdJJVV9q0ZdqdolVCE4_F678ewfW-3__34H5T-VO7Aa4oOvZ1Yds";
 
     // Common function to send the embed payload via webhook.
     async function sendDiscordEmbed(embedPayload) {
@@ -270,24 +254,6 @@
         document.getElementById("modResult").innerText = "Error sending kick request.";
       }
     });
-      document.getElementById("actionLogForm").addEventListener("submit", async function(e) {
-      e.preventDefault();
-      const type = document.getElementById("actionType").value;
-      const userId = document.getElementById("actionUserId").value.trim();
-      const reason = document.getElementById("actionReason").value.trim();
-      const staffDetails = document.getElementById("actionStaffDetails").value.trim();
-      const evidence = document.getElementById("actionEvidence").value.trim();
-
-        if (!type || !userId || !reason || !staffDetails || !evidence) {
-        document.getElementById("modResult").innerText = "All fields are required for an action log.";
-        return;
-      }
-            const embedPayload = {
-        title: `In-Game Action: ${type}`,
-        description: `**User ID:** ${userId}\n**Action Type:** ${type}\n**Reason:** ${reason}\n**Staff Details:** ${staffDetails}\n**Proof/Evidence:** ${evidence}`,
-        color: type === "Ban" ? 15158332 : type === "Kick" ? 15105570 : 3447003,
-        timestamp: new Date().toISOString()
-      };
   </script>
 </body>
 </html>
