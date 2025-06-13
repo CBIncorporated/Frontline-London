@@ -98,6 +98,47 @@
       width: 100%;
       border: none;
     }
+
+    /* Moderation Actions Section */
+    .moderation-actions {
+      background: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      margin-top: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .moderation-actions h2 {
+      margin-top: 0;
+      margin-bottom: 15px;
+    }
+    .moderation-actions form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .moderation-actions form input {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+    .moderation-actions form button {
+      padding: 10px 20px;
+      background-color: #c0392b;
+      border: none;
+      color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+    .moderation-actions form button:hover {
+      background-color: #a93226;
+    }
+    #modResult {
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
@@ -116,4 +157,115 @@
 
     <!-- Main Dashboard Area -->
     <main class="dashboard">
-      <h1>Staff Resources</h1>
+      <h1>Moderation Panel</h1>
+      
+      <!-- Existing moderation content can go here... -->
+      
+      <!-- Moderation Actions Section -->
+      <section class="moderation-actions">
+        <h2>Moderation Actions</h2>
+        <!-- Ban User Form -->
+        <form id="banForm">
+          <h3>Ban User</h3>
+          <input type="text" id="banUserId" placeholder="Enter Discord User ID" required>
+          <input type="text" id="banReason" placeholder="Reason for ban" required>
+          <button type="submit">Ban User</button>
+        </form>
+        <!-- Kick User Form -->
+        <form id="kickForm">
+          <h3>Kick User</h3>
+          <input type="text" id="kickUserId" placeholder="Enter Discord User ID" required>
+          <input type="text" id="kickReason" placeholder="Reason for kick" required>
+          <button type="submit">Kick User</button>
+        </form>
+        <p id="modResult"></p>
+      </section>
+    </main>
+  </div>
+
+  <!-- Optional external script file: script.js -->
+  <script src="script.js"></script>
+  <!-- Inline JavaScript for Dropdowns and Moderation Actions -->
+  <script>
+    // Dropdown Toggle Script (if needed elsewhere)
+    const dropdownBtns = document.getElementsByClassName("dropdown-btn");
+    for (let i = 0; i < dropdownBtns.length; i++) {
+      dropdownBtns[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        let dropdownContent = this.nextElementSibling;
+        dropdownContent.style.display = dropdownContent.style.display === "block" ? "none" : "block";
+      });
+    }
+
+    /* Moderation Actions: Ban and Kick */
+    // Replace with your backend API that handles banning and kicking.
+    const backendUrl = "YOUR_BACKEND_API_URL/moderation";
+
+    document.getElementById("banForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const userId = document.getElementById("banUserId").value.trim();
+      const reason = document.getElementById("banReason").value.trim();
+      
+      const payload = {
+        action: "ban",
+        userId: userId,
+        reason: reason
+      };
+      
+      try {
+        const response = await fetch(backendUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(payload)
+        });
+        
+        if (response.ok) {
+          document.getElementById("modResult").innerText = "User banned successfully.";
+          document.getElementById("banForm").reset();
+          document.getElementById("kickForm").reset();
+        } else {
+          document.getElementById("modResult").innerText = "Error banning user.";
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        document.getElementById("modResult").innerText = "Error banning user.";
+      }
+    });
+    
+    document.getElementById("kickForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const userId = document.getElementById("kickUserId").value.trim();
+      const reason = document.getElementById("kickReason").value.trim();
+      
+      const payload = {
+        action: "kick",
+        userId: userId,
+        reason: reason
+      };
+      
+      try {
+        const response = await fetch(backendUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(payload)
+        });
+        
+        if (response.ok) {
+          document.getElementById("modResult").innerText = "User kicked successfully.";
+          document.getElementById("kickForm").reset();
+          document.getElementById("banForm").reset();
+        } else {
+          document.getElementById("modResult").innerText = "Error kicking user.";
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        document.getElementById("modResult").innerText = "Error kicking user.";
+      }
+    });
+  </script>
+</body>
+</html>
