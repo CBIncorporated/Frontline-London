@@ -155,8 +155,8 @@
     // Common function to send the embed payload via webhook.
     async function sendDiscordEmbed(embedPayload) {
       const payload = {
-        username: "Moderation Bot",
-        avatar_url: "https://i.imgur.com/VKXw5aP.png", // Example avatar—adjust as needed.
+        username: "Frontline London Moderation Approval",
+        avatar_url: "https://frontlinelondonrpc.forcemanagementsystem.com/", // Example avatar—adjust as needed.
         embeds: [embedPayload]
       };
 
@@ -219,7 +219,7 @@
         title: "Kick Request",
         description: `**User ID:** ${userId}\n**Reason:** ${reason}`,
         color: 15105570,  // Orange color for kicks (decimal)
-        footer: { text: "Request sent to moderation channel." },
+        footer: { text: "Action pending approval." },
         timestamp: new Date().toISOString()
       };
 
